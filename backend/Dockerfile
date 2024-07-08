@@ -13,17 +13,25 @@ RUN apt-get update && apt-get install -y \
     && curl -sSL https://install.python-poetry.org | python3 - \
     && apt-get clean
 
-# Add Poetry to PATH
-ENV PATH="/root/.local/bin:$PATH"
 
 # Copy pyproject.toml and poetry.lock to leverage Docker cache
-COPY pyproject.toml poetry.lock* ./
+# COPY pyproject.toml poetry.lock* ./
+
+# Copy the rest of the application code to the working directory
+COPY . .
+
+# Add Poetry to PATH
+RUN /root/ .local/bin/poetry install
 
 # Install Python dependencies using Poetry
 RUN poetry install --no-root --no-dev
 
-# Copy the rest of the application code to the working directory
-COPY . .
+# set permission for the prestart file to be executable
+RUN chmod 755 ./prestart.sh
+
+# set up the database with the necessary tables
+RUN poetry run ./prestart.sh
+
 
 # Expose port 8000 for FastAPI
 EXPOSE 8000
