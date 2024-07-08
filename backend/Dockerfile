@@ -1,6 +1,9 @@
 # Use an official Python runtime as a parent image
 FROM python:3.10-slim
 
+# install bash to run the script
+# RUN sudo apt-get install bash
+
 # Set the working directory to /app
 WORKDIR /app
 
@@ -13,25 +16,17 @@ RUN apt-get update && apt-get install -y \
     && curl -sSL https://install.python-poetry.org | python3 - \
     && apt-get clean
 
+# Add Poetry to PATH
+ENV PATH="/root/.local/bin:$PATH"
 
 # Copy pyproject.toml and poetry.lock to leverage Docker cache
-# COPY pyproject.toml poetry.lock* ./
-
-# Copy the rest of the application code to the working directory
-COPY . .
-
-# Add Poetry to PATH
-RUN /root/ .local/bin/poetry install
+COPY pyproject.toml poetry.lock* ./
 
 # Install Python dependencies using Poetry
 RUN poetry install --no-root --no-dev
 
-# set permission for the prestart file to be executable
-RUN chmod 755 ./prestart.sh
-
-# set up the database with the necessary tables
-RUN poetry run ./prestart.sh
-
+# Copy the rest of the application code to the working directory
+COPY . .
 
 # Expose port 8000 for FastAPI
 EXPOSE 8000

@@ -58,7 +58,7 @@ services:
       - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
       - "traefik.http.services.frontend.loadbalancer.server.port=80"
       # Serve the frontend on the root path
-      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      # - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
     networks:
       - web
 
@@ -68,8 +68,8 @@ services:
       DATABASE_URL: postgres://app:admin123@postgres:5432/app
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`api.kapelar.mooo.com`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.docs.rule=Host(`api.kapelar.mooo.com`) && PathPrefix(`/docs`)"
+      - "traefik.http.routers.backend.rule=Host(`api.kapelar.mooo.com`)"
+      - "traefik.http.routers.docs.rule=Host(`api.kapelar.mooo.com`)"
       - "traefik.http.services.backend.loadbalancer.server.port=8000"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
