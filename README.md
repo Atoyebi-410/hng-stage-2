@@ -109,9 +109,10 @@ This repository contains a full-stack web application built with React (frontend
 
 * [Frontend:](https://kapelar.mooo.com)
   
-  ![Frontend](https://github.com/Atoyebi-410/hng-stage-2/assets/137656490/a8685bed-881d-4d06-968d-742e1b6f3da5)
+  ![Frontend](http:///images/frontend.png)
   
-  <img src="/../images/frontend.png">
+  <img src="./images/backend.png">
+![frontend](https://github.com/Atoyebi-410/hng-stage-2/assets/137656490/07c96887-e41a-4fd4-92eb-76d0144123fa)
 
 
 
